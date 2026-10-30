@@ -1,0 +1,9 @@
+# === HITOS DE CODYOS ===
+# Un hito por línea, en el orden en que deben salir.
+# Antes de cada hito corre un pedazo del código.
+# Las líneas vacías y las que empiezan con # se ignoran.
+
+19/09/2011: Aniversario de CódigoFacilito
+25/09/2011: Cumpleaños de Cody
+Cofundadores : Alex Soria y Uriel Hernández
+2016 - se integran al equipo Eduardo, Luis y Marines
