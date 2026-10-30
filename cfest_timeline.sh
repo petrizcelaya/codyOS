@@ -7,6 +7,14 @@ COLOR="${COLOR_CODIGO:-\033[0;32m}"   # Color del código
 DESTACADO="${COLOR_HITO:-\033[1;33m}" # Color de los hitos
 NC="${COLOR_RESET:-\033[0m}"
 
+# Cargar tamaño de letra desde fuentes.conf (si no existe, no cambia la letra)
+CONF="$(dirname "$0")/fuentes.conf"
+[ -f "$CONF" ] && source <(tr -d '\r' < "$CONF")
+[ -n "$FUENTE_CODIGO" ] && setfont "$FUENTE_CODIGO" 2>/dev/null
+
+# Al salir con Ctrl+C regresa la letra y el color normales
+trap 'echo -e "${NC}"; setfont 2>/dev/null; clear; exit' INT TERM
+
 # Función para simular la escritura de código rápido
 escribir_codigo() {
     echo -e "${COLOR}$1${NC}" | pv -qL 400

@@ -7,6 +7,18 @@ COLOR="${COLOR_CODIGO:-\033[0;32m}"   # Color del código
 DESTACADO="${COLOR_HITO:-\033[1;33m}" # Color de los hitos
 NC="${COLOR_RESET:-\033[0m}"          # Sin color
 
+# Cargar tamaños de letra desde fuentes.conf (si no existe, no cambia la letra)
+CONF="$(dirname "$0")/fuentes.conf"
+[ -f "$CONF" ] && source <(tr -d '\r' < "$CONF")
+
+# Cambia la letra de la consola (si no se puede, p. ej. por SSH, sigue sin cambiarla)
+cambiar_fuente() {
+    [ -n "$1" ] && setfont "$1" 2>/dev/null
+}
+
+# Al salir con Ctrl+C regresa la letra y el color normales
+trap 'echo -e "${NC}"; setfont 2>/dev/null; clear; exit' INT TERM
+
 # Función para mostrar los datos importantes con pausa
 mostrar_hito() {
     # Cambiamos a amarillo, ponemos unas barras para que se vea pro, y escribimos el mensaje
@@ -20,6 +32,8 @@ mostrar_hito() {
 clear
 
 while true; do
+    # Letra chica para que quepan los logos
+    cambiar_fuente "$FUENTE_LOGOS"
     echo -e "${COLOR}"
     cat logoold.txt | pv -qL 800
     sleep 2
@@ -31,6 +45,10 @@ while true; do
      echo -e "${COLOR}"
     cat logoMS.txt | pv -qL 800
     sleep 2
+
+    # Letra grande para el código y los hitos (se limpia para que no se deformen los logos)
+    clear
+    cambiar_fuente "$FUENTE_CODIGO"
 
     # 2. Muestra las primeras 30 líneas del código real
     echo -e "${COLOR}"
