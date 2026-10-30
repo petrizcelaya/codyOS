@@ -49,7 +49,7 @@ while true; do
     sed -n '71,110p' codigo.txt | pv -qL 300
 
     # 7. Tercer Hito
-    mostrar_hito "Codundadores : Alex Soria y Uriel Hernández"
+    mostrar_hito "Cofundadores : Alex Soria y Uriel Hernández"
 
     # 8. Muestra de la línea 111 a la 160 para terminar el ciclo
     echo -e "${COLOR}"
