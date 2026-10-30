@@ -1,8 +1,11 @@
 #!/bin/bash
 
-COLOR='\033[0;32m'     # Verde tipo terminal
-DESTACADO='\033[1;33m' # Amarillo para resaltar los datos
-NC='\033[0m'
+# Cargar colores desde colores.conf (si no existe, usa los de siempre)
+CONF="$(dirname "$0")/colores.conf"
+[ -f "$CONF" ] && source <(tr -d '\r' < "$CONF")
+COLOR="${COLOR_CODIGO:-\033[0;32m}"   # Color del código
+DESTACADO="${COLOR_HITO:-\033[1;33m}" # Color de los hitos
+NC="${COLOR_RESET:-\033[0m}"
 
 # Función para simular la escritura de código rápido
 escribir_codigo() {

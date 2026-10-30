@@ -1,9 +1,11 @@
 #!/bin/bash
 
-# Definir colores
-COLOR='\033[0;32m'     # Verde clásico
-DESTACADO='\033[1;33m' # Amarillo para que los datos destaquen
-NC='\033[0m'           # Sin color
+# Cargar colores desde colores.conf (si no existe, usa los de siempre)
+CONF="$(dirname "$0")/colores.conf"
+[ -f "$CONF" ] && source <(tr -d '\r' < "$CONF")
+COLOR="${COLOR_CODIGO:-\033[0;32m}"   # Color del código
+DESTACADO="${COLOR_HITO:-\033[1;33m}" # Color de los hitos
+NC="${COLOR_RESET:-\033[0m}"          # Sin color
 
 # Función para mostrar los datos importantes con pausa
 mostrar_hito() {
